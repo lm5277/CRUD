@@ -3,56 +3,56 @@
 <!-- 为这个mapper指定一个唯一的namespace,namespace的值习惯上设置成包名+sql映射文件名,这样就能够保证namespace的值是唯一的 -->
 <mapper namespace="com.yr.mapp.UserMapp">
 
-	<resultMap type="com.yr.entity.User" id="hhh">
-		<id property="id" column="id"/>
-		<result property="name" column="name"/>
-		<result property="birth" column="birth"/>
-		<result property="salary" column="salary"/>
-		<result property="headUrl" column="headUrl"/>
-		<result property="sex" column="sex"/>
-	</resultMap>
+    <resultMap type="com.yr.entity.User" id="hhh">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="birth" column="birth"/>
+        <result property="salary" column="salary"/>
+        <result property="headUrl" column="headUrl"/>
+        <result property="sex" column="sex"/>
+    </resultMap>
 
-	<!-- 查询 -->
-	<select id="getUserList" resultMap="hhh">
-		select * from user
-	</select>
+    <!-- 查询 -->
+    <select id="getUserList" resultMap="hhh">
+        select * from user
+    </select>
 
-	<!-- 添加 -->
-	<insert id="getinsert" parameterType="User" >
-		insert into user (name,birth,salary,headUrl,sex) values(#{name},#{birth},#{salary},#{headUrl},#{sex});
-	</insert>
+    <!-- 添加 -->
+    <insert id="getinsert" parameterType="User">
+        insert into user (name,birth,salary,headUrl,sex) values(#{name},#{birth},#{salary},#{headUrl},#{sex});
+    </insert>
 
 
-	<!-- 删除 -->
-	<delete id="getdelete" parameterType="User" >
-		delete from user where id = #{id};
-	</delete>
+    <!-- 删除 -->
+    <delete id="getdelete" parameterType="User">
+        delete from user where id = #{id};
+    </delete>
 
-	<!-- 回响id -->
-	<select id="getByid" parameterType="User" resultMap="hhh">
-		select * from user where id=#{id};
-	</select>
+    <!-- 回响id -->
+    <select id="getByid" parameterType="User" resultMap="hhh">
+        select * from user where id=#{id};
+    </select>
 
-	<!-- 修改 防止未修改更新的数据不为null，空-->
-	<update id="getupdate" parameterType="User" >
-		update user set
-		<if test="name !=null and name !=''">
-			name = #{name},
-		</if>
+    <!-- 修改 防止未修改更新的数据不为null，空-->
+    <update id="getupdate" parameterType="User">
+        update user set
+        <if test="name !=null and name !=''">
+            name = #{name},
+        </if>
 
-			birth = #{birth},
+        birth = #{birth},
 
-		<if test="salary !=0 and salary !=''">
-			salary = #{salary},
-		</if>
-		<if test="headUrl !=null and headUrl !=''">
-			headUrl = #{headUrl},
-		</if>
-		<if test="sex !=null and sex !=''">
-			sex = #{sex},
-		</if>
-		id = #{id}
-		where id = #{id}
-	</update>
+        <if test="salary !=0 and salary !=''">
+            salary = #{salary},
+        </if>
+        <if test="headUrl !=null and headUrl !=''">
+            headUrl = #{headUrl},
+        </if>
+        <if test="sex !=null and sex !=''">
+            sex = #{sex},
+        </if>
+        id = #{id}
+        where id = #{id}
+    </update>
 
 </mapper>

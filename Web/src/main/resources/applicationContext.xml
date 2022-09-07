@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns:p="http://www.springframework.org/schema/p"
-	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:aop="http://www.springframework.org/schema/aop"
-	   xmlns:tx="http://www.springframework.org/schema/tx"
-	   xsi:schemaLocation="http://www.springframework.org/schema/aop
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -14,68 +14,69 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- 导入db文件 -->
-	<context:property-placeholder location="classpath:db.properties"/>
+    <!-- 导入db文件 -->
+    <context:property-placeholder location="classpath:db.properties"/>
 
 
-	<!-- 扫包 -->
-	<context:component-scan base-package="com.yr"><!-- 这里配置排除指定 类上指定注解，因    为这两个都是springmvc需要用的，所以这里排除掉 -->
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
-	</context:component-scan>
+    <!-- 扫包 -->
+    <context:component-scan base-package="com.yr"><!-- 这里配置排除指定 类上指定注解，因    为这两个都是springmvc需要用的，所以这里排除掉 -->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
 
 
-	<!-- 配置数据源 -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${db.driver}"></property>
-		<property name="jdbcUrl" value="${db.url}"></property>
-		<property name="user" value="${db.user}"></property>
-		<property name="password" value="${db.password}"></property>
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${db.driver}"></property>
+        <property name="jdbcUrl" value="${db.url}"></property>
+        <property name="user" value="${db.user}"></property>
+        <property name="password" value="${db.password}"></property>
 
-		<!-- 连接池初始化时创建的连接数  也就是初始化加载就有连接数,需要调用就给你-->
-		<property name="initialPoolSize" value="${db.initialPoolSize}"></property>
-		<!-- 连接池中拥有的最大连接数  当扩充到最大连接数就不在扩充-->
-		<property name="maxPoolSize" value="${db.maxPoolSize}"></property>
-	</bean>
-
-
-	<!-- 配置 mybatis SessionFactory -->
-	<bean id="sqlSessionFactory"
-		  class="org.mybatis.spring.SqlSessionFactoryBean"> <!-- lazy-init="false" -->
-		<!-- 配置数据源属性 -->
-		<property name="dataSource" ref="dataSource"></property>
-		<!-- 扫实体类 -->
-		<property name="typeAliasesPackage" value="com.yr.entity"></property>
-		<!-- 加载实体类的映射文件位置及名称 -->
-		<property name="mapperLocations" value="classpath:userMapper.xml"></property>
-	</bean>
-
-	<!-- mybatis自动扫描加载Sql映射文件 -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.yr.mapp"></property>
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-	</bean>
+        <!-- 连接池初始化时创建的连接数  也就是初始化加载就有连接数,需要调用就给你-->
+        <property name="initialPoolSize" value="${db.initialPoolSize}"></property>
+        <!-- 连接池中拥有的最大连接数  当扩充到最大连接数就不在扩充-->
+        <property name="maxPoolSize" value="${db.maxPoolSize}"></property>
+    </bean>
 
 
-	<!-- 配置事物管理器 -->
-	<!-- <bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean> -->
+    <!-- 配置 mybatis SessionFactory -->
+    <bean id="sqlSessionFactory"
+          class="org.mybatis.spring.SqlSessionFactoryBean"> <!-- lazy-init="false" -->
+        <!-- 配置数据源属性 -->
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- 扫实体类 -->
+        <property name="typeAliasesPackage" value="com.yr.entity"></property>
+        <!-- 加载实体类的映射文件位置及名称 -->
+        <property name="mapperLocations" value="classpath:userMapper.xml"></property>
+    </bean>
 
-	<!-- 配置事务异常封装 -->
-	<!-- <bean id="persistenceExceptionTranslationPostProcessor"
-		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-	<tx:annotation-driven
-		transaction-manager="transactionManager" /> -->
+    <!-- mybatis自动扫描加载Sql映射文件 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.yr.mapp"></property>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+    </bean>
 
 
-	<!-- 配置支持基于注解是事务配置 -->
-	<!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+    <!-- 配置事物管理器 -->
+    <!-- <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean> -->
+
+    <!-- 配置事务异常封装 -->
+    <!-- <bean id="persistenceExceptionTranslationPostProcessor"
+        class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+    <tx:annotation-driven
+        transaction-manager="transactionManager" /> -->
 
 
-	<!-- 配置jdbc -->
-	<!-- 	<bean id="jdbcTemplate"
+    <!-- 配置支持基于注解是事务配置 -->
+    <!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+
+
+    <!-- 配置jdbc -->
+    <!-- 	<bean id="jdbcTemplate"
             class="org.springframework.jdbc.core.JdbcTemplate">
             <property name="dataSource" ref="dataSource"></property>
         </bean> -->

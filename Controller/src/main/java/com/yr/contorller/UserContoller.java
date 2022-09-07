@@ -34,12 +34,12 @@ import com.yr.service.UserService;
 @Controller
 public class UserContoller {
 
-	
-	
+
+
 	@Autowired
 	private UserService userService;
 
-	
+
 	/**
 	 * 查询所有
 	 * @param map
@@ -52,9 +52,9 @@ public class UserContoller {
 		map.put("lang", locale.toString());
 		return "list";
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 头像显示
 	 * @param httpServletRequest
@@ -85,16 +85,16 @@ public class UserContoller {
 
 		return "success";
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * 添加
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping("/addUserShow") 
+	@RequestMapping("/addUserShow")
 	public String addUserShow(Map<String, Object> map) {
 		Map<Integer, String> mapSex = new HashMap<>();
 		mapSex.put(0, "男");
@@ -105,7 +105,7 @@ public class UserContoller {
 		return "input";
 	}
 
-	
+
 	/**
 	 * 删除
 	 * @param id
@@ -118,8 +118,8 @@ public class UserContoller {
 		userService.deleteUser(user);
 		return "redirect:/users";
 	}
-	
-	
+
+
 	/**
 	 * 修改回响
 	 * @param id
@@ -131,7 +131,7 @@ public class UserContoller {
 	{
 		User user = userService.getUserById(id);
 		map.put("user", user);
-		
+
 		Map<Integer, String> mapSex = new HashMap<>();
 		mapSex.put(0, "男");
 		mapSex.put(1, "女");
@@ -140,7 +140,7 @@ public class UserContoller {
 		return "input";
 	}
 
-	
+
 	/**
 	 * 添加保存
 	 * @param user
@@ -179,16 +179,16 @@ public class UserContoller {
 			e.printStackTrace();
 		}
 		return "redirect:/users";
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
+
 		//		System.out.println(value);
 //		try {
 //			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -217,7 +217,7 @@ public class UserContoller {
 //		}
 //		return "redirect:/users";
 	}
-	
+
 	/**
 	 * id 等于空是，数据库里的id数据 补上去
 	 * @param id
@@ -229,19 +229,19 @@ public class UserContoller {
 			map.put("user", userService.getUserById(id));
 		}
 	}
-	
-	
+
+
 	/**
 	 * 修改
 	 * @param user
 	 * @param uploadFile
 	 * @return
 	 */
-	
+
 	@RequestMapping(value = "/user", method = RequestMethod.PUT)
 	public String updateUser(@Valid User user, @RequestParam("head") MultipartFile uploadFile) {
-		
-		
+
+
 		try {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 			String fileName = simpleDateFormat.format(new Date());
@@ -269,12 +269,12 @@ public class UserContoller {
 			e.printStackTrace();
 		}
 		return "redirect:/users";
-		
-		
-		
+
+
+
 //		System.out.println("修改...");
 //		System.out.println("-----------"+user);
-		
+
 //		try {
 //			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
 //			String fileName = simpleDateFormat.format(new Date());
@@ -306,10 +306,10 @@ public class UserContoller {
 //
 //		}
 //		return "redirect:/users";
-		
-		
-		
-		
+
+
+
+
 	}
 
 }
