@@ -48,6 +48,6 @@
     <input type="submit" <fmt:message key="a.bcd"></fmt:message>/>
 </form:form>
 
-
+aaa
 </body>
 </html>
